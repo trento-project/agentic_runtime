@@ -3,16 +3,14 @@ defmodule AgenticRuntime do
   Documentation for `AgenticRuntime`.
   """
 
-  @doc """
-  Hello world.
+  alias AgenticRuntime.Agents.Factory
 
-  ## Examples
+  defdelegate build_anthropic_model_config(model_name, api_key, opts), to: Factory
+  defdelegate build_openai_model_config(model_name, api_key), to: Factory
+  defdelegate build_googleai_model_config(model_name, api_key), to: Factory
 
-      iex> AgenticRuntime.hello()
-      :world
+  defdelegate create_agent(opts), to: Factory
 
-  """
-  def hello do
-    :world
-  end
+  # Channel helpers
+  # See AgenticRuntime.IntegrationHelpers
 end
