@@ -9,6 +9,12 @@ defmodule AgenticRuntime do
   defdelegate build_openai_model_config(model_name, api_key), to: Factory
   defdelegate build_googleai_model_config(model_name, api_key), to: Factory
 
+  @doc """
+  Required opts: 
+  * model_config
+  * base_system_prompt
+  * tools 
+  """
   defdelegate create_agent(opts), to: Factory
 
   defdelegate build_new_user_message!(message_text), to: LangChain.Message, as: :new_user!
