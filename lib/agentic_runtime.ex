@@ -11,6 +11,10 @@ defmodule AgenticRuntime do
 
   defdelegate create_agent(opts), to: Factory
 
+  defdelegate build_new_user_message!(message_text), to: LangChain.Message, as: :new_user!
+  defdelegate add_message(agent_id, langchain_message), to: Sagents.AgentServer
+  defdelegate cancel_agent_execution(agent_id), to: Sagents.AgentServer, as: :cancel
+
   # Channel helpers
   # See AgenticRuntime.IntegrationHelpers
 end
