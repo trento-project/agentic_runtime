@@ -124,6 +124,7 @@ defmodule AgenticRuntime.Agents.Factory do
     tools = Keyword.get(opts, :tools, [])
     fallback_models = Keyword.get(opts, :fallback_models, [])
     before_fallback = Keyword.get(opts, :before_fallback, nil)
+    tool_context = Keyword.get(opts, :tool_context, %{})
 
     Agent.new(
       %{
@@ -133,7 +134,8 @@ defmodule AgenticRuntime.Agents.Factory do
         middleware: build_middleware(filesystem_scope, interrupt_on, title_model_config),
         fallback_models: fallback_models,
         before_fallback: before_fallback,
-        tools: tools
+        tools: tools,
+        tool_context: tool_context
       },
       # Since we specify the full middleware stack, don't add defaults
       replace_default_middleware: true

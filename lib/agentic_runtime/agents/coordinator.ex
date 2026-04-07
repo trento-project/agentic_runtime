@@ -414,11 +414,17 @@ defmodule AgenticRuntime.Agents.Coordinator do
     factory_opts = Keyword.get(opts, :factory_opts, [])
 
     # 2. Create agent from factory (configuration from code)
+    user_scope = Keyword.get(opts, :user_scope)
+    tool_context = Keyword.get(opts, :tool_context, %{})
+    tool_context = Map.put(tool_context, :current_scope, user_scope)
+
     # Pass the explicit filesystem scope to the Factory
     merged_factory_opts =
       factory_opts
       |> Keyword.put(:agent_id, agent_id)
       |> Keyword.put(:filesystem_scope, filesystem_scope)
+      |> Keyword.put(:user_scope, user_scope)
+      |> Keyword.put(:tool_context, tool_context)
 
     {:ok, agent} = AgenticRuntime.Agents.Factory.create_agent(merged_factory_opts)
 
